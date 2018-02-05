@@ -11,12 +11,12 @@ namespace Sunbeam
     public abstract class BaseMod : IModHookV2
     {
         /// <summary>
-        /// The mod identifier
-        /// For now only used in junction with the HarmonyPrefix as a identifier
-        /// to apply the patches under
+        /// The mod identifier should be the same as the mod's name/folder name
+        /// For now only used in junction with the HarmonyPrefix as a identifier and used
+        /// for the AssetLoader to locate the mod directory
         /// </summary>
         public abstract string ModIdentifier { get; }
-
+        
         /// <summary>
         /// Placeholder for the mod settings from the .mod file
         /// </summary>
@@ -44,6 +44,7 @@ namespace Sunbeam
         protected BaseMod()
         {
             this.ApplyHarmonyPatches();
+            AssetLoader.Initialize(this.ModIdentifier);
         }
 
         /// <summary>

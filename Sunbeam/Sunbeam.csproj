@@ -56,6 +56,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AssetLoader.cs" />
     <Compile Include="BaseMod.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
