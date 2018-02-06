@@ -39,12 +39,17 @@ namespace Sunbeam
         protected HarmonyInstance HarmonyInstance { get; set; }
 
         /// <summary>
+        /// AssetLoader instance
+        /// </summary>
+        protected AssetLoader AssetLoader { get; set; }
+
+        /// <summary>
         /// Instantiate a new BaseMod
         /// </summary>
         protected BaseMod()
         {
             this.ApplyHarmonyPatches();
-            AssetLoader.Initialize(this.ModIdentifier);
+            this.AssetLoader = new AssetLoader(this.ModIdentifier);
         }
 
         /// <summary>
