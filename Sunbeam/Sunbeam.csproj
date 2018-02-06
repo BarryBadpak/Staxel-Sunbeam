@@ -64,6 +64,9 @@
     <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="preview.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Sunbeam.mod">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
