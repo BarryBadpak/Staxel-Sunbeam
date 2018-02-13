@@ -75,49 +75,108 @@ namespace Sunbeam
         }
 
 
-        public void ClientContextInitializeInit() { }
+        /// <summary>
+        /// Template method for IModHookV2.ClientContextInitializeInit
+        /// </summary>
+        public void ClientContextInitializeInit()
+        {
+            this.ClientContextInitializeInitOverride();
+        }
 
         /// <summary>
         /// Called whenever the ClientContext.Initialize is called on game instantiation
-        /// ClientContext.Initialize is called after GameContext.Initialize
+        /// ClientContext.Initialize is called after GameContext.Initialize by 
         /// 
         /// Currently this method only exists within the interface
         /// </summary>
-        public virtual void ClientContextInitializeInitOverride()
-        {
+        protected virtual void ClientContextInitializeInitOverride() { }
 
+        /// <summary>
+        /// Template method for IModHookV2.ClientContextInitializeBefore
+        /// </summary>
+        public void ClientContextInitializeBefore()
+        {
+            this.ClientContextInitializeBeforeOverride();
         }
 
         /// <summary>
         /// Called before ClientContext.ResourceIntializations
         /// </summary>
-        public void ClientContextInitializeBefore() { }
+        protected virtual void ClientContextInitializeBeforeOverride() { }
+
+        /// <summary>
+        /// Template method for IModHookV2.ClientContextInitializeAfter
+        /// </summary>
+        public void ClientContextInitializeAfter()
+        {
+            this.ClientContextInitializeAfterOverride();
+        }
 
         /// <summary>
         /// Called at the end of ClientContext.ResourceIntializations
         /// </summary>
-        public void ClientContextInitializeAfter() { }
+        protected virtual void ClientContextInitializeAfterOverride() { }
+
+        /// <summary>
+        /// Template method for IModHookV2.ClientContextDeinitialize
+        /// </summary>
+        public void ClientContextDeinitialize()
+        {
+            this.ClientContextDeinitializeOverride();
+        }
 
         /// <summary>
         /// Called on ClientContext.Deinitialize
         /// </summary>
-        public void ClientContextDeinitialize() { }
+        protected virtual void ClientContextDeinitializeOverride() { }
+
+        /// <summary>
+        /// Template method for IModHookV2.ClientContextReloadBefore
+        /// </summary>
+        public void ClientContextReloadBefore()
+        {
+            this.ClientContextReloadBeforeOverride();
+        }
 
         /// <summary>
         /// Called at the start of ClientContext.Reload which is called from ClientMainLoop.AttemptActivateBundle
         /// </summary>
-        public void ClientContextReloadBefore() { }
+        protected virtual void ClientContextReloadBeforeOverride() { }
+
+        /// <summary>
+        /// Template method for IModHookV2.ClientContextReloadAfter
+        /// </summary>
+        public void ClientContextReloadAfter()
+        {
+            this.ClientContextReloadAfterOverride();
+        }
 
         /// <summary>
         /// Called at the end of ClientContext.Reload which is called from ClientMainLoop.AttemptActivateBundle
         /// </summary>
-        public void ClientContextReloadAfter() { }
+        protected virtual void ClientContextReloadAfterOverride() { }
+
+        /// <summary>
+        /// Template method for IModHook.CleanupOldSession
+        /// </summary>
+        public void CleanupOldSession()
+        {
+            this.CleanupOldSessionOverride();
+        }
 
         /// <summary>
         /// Called from ClientContext.CleanupOldSession through ClientMainLoop.Dispose
         /// Gets called whenever you exit to the main menu from a game session
         /// </summary>
-        public void CleanupOldSession() { }
+        protected virtual void CleanupOldSessionOverride() { }
+
+        /// <summary>
+        /// Template method for IModHook.GameContextInitializeInit
+        /// </summary>
+        public void GameContextInitializeInit()
+        {
+            this.GameContextInitializeInitOverride();
+        }
 
         /// <summary>
         /// GameContext.Initialize calls the GameContextInitializeInit on the ModdingController
@@ -126,46 +185,117 @@ namespace Sunbeam
         /// 
         /// GameContext.Initialize is called before ClientContext.Initialize
         /// </summary>
-        public void GameContextInitializeInit() { }
+        protected virtual void GameContextInitializeInitOverride() { }
+
+        /// <summary>
+        /// Template method for IModHook.GameContextInitializeBefore
+        /// </summary>
+        public void GameContextInitializeBefore()
+        {
+            this.GameContextInitializeBeforeOverride();
+        }
 
         /// <summary>
         /// Called before GameContext.ResourceIntializations
         /// </summary>
-        public void GameContextInitializeBefore() { }
+        protected virtual void GameContextInitializeBeforeOverride() { }
+
+        /// <summary>
+        /// Template method for IModHook.GameContextInitializeAfter
+        /// </summary>
+        public void GameContextInitializeAfter()
+        {
+            this.GameContextInitializeAfterOverride();
+        }
 
         /// <summary>
         /// Called at the end of GameContext.ResourceIntializations
         /// </summary>
-        public void GameContextInitializeAfter() { }
+        protected virtual void GameContextInitializeAfterOverride() { }
+
+        /// <summary>
+        /// Template method for IModHook.GameContextDeinitialize
+        /// </summary>
+        public void GameContextDeinitialize()
+        {
+            this.GameContextDeinitializeOverride();
+        }
 
         /// <summary>
         /// Called on GameContext.Deinitialize
         /// </summary>
-        public void GameContextDeinitialize() { }
+        protected virtual void GameContextDeinitializeOverride() { }
+
+        /// <summary>
+        /// Template method for IModHook.GameContextReloadBefore
+        /// </summary>
+        public void GameContextReloadBefore()
+        {
+            this.GameContextReloadBeforeOverride();
+        }
 
         /// <summary>
         /// Called at the start of GameContext.Reload which is called from either ClientMainLoop.AttemptActivateBundle
         /// or ServerMainLoop.RequestReload
         /// </summary>
-        public void GameContextReloadBefore() { }
+        protected virtual void GameContextReloadBeforeOverride() { }
+
+        /// <summary>
+        /// Template method for IModHook.GameContextReloadAfter
+        /// </summary>
+        public void GameContextReloadAfter()
+        {
+            this.GameContextReloadAfterOverride();
+        }
 
         /// <summary>
         /// Called at the end of GameContext.Reload which is called from either ClientMainLoop.AttemptActivateBundle
         /// or ServerMainLoop.RequestReload
         /// </summary>
-        public void GameContextReloadAfter() { }
+        protected virtual void GameContextReloadAfterOverride() { }
+
+        /// <summary>
+        /// Template method for IModHook.UniverseUpdateBefore
+        /// </summary>
+        /// <param name="universe"></param>
+        /// <param name="step"></param>
+        public void UniverseUpdateBefore(Universe universe, Timestep step)
+        {
+            this.UniverseUpdateBeforeOverride(universe, step);
+        }
 
         /// <summary>
         /// Called at the start of Universe.Update
         /// </summary>
         /// <param name="universe"></param>
         /// <param name="step"></param>
-        public void UniverseUpdateBefore(Universe universe, Timestep step) { }
+        protected virtual void UniverseUpdateBeforeOverride(Universe universe, Timestep step) { }
+
+        /// <summary>
+        /// Template method for IModHook.UniverseUpdateAfter
+        /// </summary>
+        public void UniverseUpdateAfter()
+        {
+            this.UniverseUpdateAfterOverride();
+        }
 
         /// <summary>
         /// Called at the end of Universe.Update
         /// </summary>
-        public void UniverseUpdateAfter() { }
+        protected virtual void UniverseUpdateAfterOverride() { }
+
+        /// <summary>
+        /// Template method for IModHook.CanPlaceTile
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <param name="location"></param>
+        /// <param name="tile"></param>
+        /// <param name="accessFlags"></param>
+        /// <returns></returns>
+        public bool CanPlaceTile(Entity entity, Vector3I location, Tile tile, TileAccessFlags accessFlags)
+        {
+            return this.CanPlaceTileOverride(entity, location, tile, accessFlags);
+        }
 
         /// <summary>
         /// Called from Universe.CanPlaceTile 
@@ -177,9 +307,22 @@ namespace Sunbeam
         /// <param name="tile"></param>
         /// <param name="accessFlags"></param>
         /// <returns></returns>
-        public bool CanPlaceTile(Entity entity, Vector3I location, Tile tile, TileAccessFlags accessFlags)
+        protected virtual bool CanPlaceTileOverride(Entity entity, Vector3I location, Tile tile, TileAccessFlags accessFlags)
         {
             return true;
+        }
+
+        /// <summary>
+        /// Template method for IModHook.CanReplaceTile
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <param name="location"></param>
+        /// <param name="tile"></param>
+        /// <param name="accessFlags"></param>
+        /// <returns></returns>
+        public bool CanReplaceTile(Entity entity, Vector3I location, Tile tile, TileAccessFlags accessFlags)
+        {
+            return this.CanReplaceTileOverride(entity, location, tile, accessFlags);
         }
 
         /// <summary>
@@ -192,9 +335,21 @@ namespace Sunbeam
         /// <param name="tile"></param>
         /// <param name="accessFlags"></param>
         /// <returns></returns>
-        public bool CanReplaceTile(Entity entity, Vector3I location, Tile tile, TileAccessFlags accessFlags)
+        protected virtual bool CanReplaceTileOverride(Entity entity, Vector3I location, Tile tile, TileAccessFlags accessFlags)
         {
             return true;
+        }
+
+        /// <summary>
+        /// Template method for IModHook.CanRemoveTile
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <param name="location"></param>
+        /// <param name="accessFlags"></param>
+        /// <returns></returns>
+        public bool CanRemoveTile(Entity entity, Vector3I location, TileAccessFlags accessFlags)
+        {
+            return this.CanRemoveTileOverride(entity, location, accessFlags);
         }
 
         /// <summary>
@@ -206,15 +361,23 @@ namespace Sunbeam
         /// <param name="location"></param>
         /// <param name="accessFlags"></param>
         /// <returns></returns>
-        public bool CanRemoveTile(Entity entity, Vector3I location, TileAccessFlags accessFlags)
+        protected virtual bool CanRemoveTileOverride(Entity entity, Vector3I location, TileAccessFlags accessFlags)
         {
             return true;
+        }
+
+        /// <summary>
+        /// Template method for IModHook.Dispose
+        /// </summary>
+        public void Dispose()
+        {
+            this.DisposeOverride();
         }
 
         /// <summary>
         /// Dispose is called on application shutdown to cleanup resources
         /// This get's called through ClientContext.Deinitialize()
         /// </summary>
-        public void Dispose() { }
+        protected virtual void DisposeOverride() { }
     }
 }
