@@ -74,90 +74,98 @@ namespace Sunbeam
             }
         }
 
+
+        public void ClientContextInitializeInit() { }
+
         /// <summary>
         /// Called whenever the ClientContext.Initialize is called on game instantiation
         /// ClientContext.Initialize is called after GameContext.Initialize
         /// 
         /// Currently this method only exists within the interface
         /// </summary>
-        public virtual void ClientContextInitializeInit() { }
+        public virtual void ClientContextInitializeInitOverride()
+        {
+
+        }
 
         /// <summary>
         /// Called before ClientContext.ResourceIntializations
         /// </summary>
-        public virtual void ClientContextInitializeBefore() { }
+        public void ClientContextInitializeBefore() { }
 
         /// <summary>
         /// Called at the end of ClientContext.ResourceIntializations
         /// </summary>
-        public virtual void ClientContextInitializeAfter() { }
+        public void ClientContextInitializeAfter() { }
 
         /// <summary>
         /// Called on ClientContext.Deinitialize
         /// </summary>
-        public virtual void ClientContextDeinitialize() { }
+        public void ClientContextDeinitialize() { }
 
         /// <summary>
         /// Called at the start of ClientContext.Reload which is called from ClientMainLoop.AttemptActivateBundle
         /// </summary>
-        public virtual void ClientContextReloadBefore() { }
+        public void ClientContextReloadBefore() { }
 
         /// <summary>
         /// Called at the end of ClientContext.Reload which is called from ClientMainLoop.AttemptActivateBundle
         /// </summary>
-        public virtual void ClientContextReloadAfter() { }
+        public void ClientContextReloadAfter() { }
 
         /// <summary>
         /// Called from ClientContext.CleanupOldSession through ClientMainLoop.Dispose
         /// Gets called whenever you exit to the main menu from a game session
         /// </summary>
-        public virtual void CleanupOldSession() { }
+        public void CleanupOldSession() { }
 
         /// <summary>
-        /// Called whenever the GameContext.Initialize is called on game instantiation
-        /// GameContext.Initialize is called before ClientContext.Initialize, meaning it is not
-        /// safe to use calls to ClientContext without checks
+        /// GameContext.Initialize calls the GameContextInitializeInit on the ModdingController
+        /// the ModdingController will instantiate all of the Mods and after instantiating all of them
+        /// call GameContextInitializeInit on the mods themselves.
+        /// 
+        /// GameContext.Initialize is called before ClientContext.Initialize
         /// </summary>
-        public virtual void GameContextInitializeInit() { }
+        public void GameContextInitializeInit() { }
 
         /// <summary>
         /// Called before GameContext.ResourceIntializations
         /// </summary>
-        public virtual void GameContextInitializeBefore() { }
+        public void GameContextInitializeBefore() { }
 
         /// <summary>
         /// Called at the end of GameContext.ResourceIntializations
         /// </summary>
-        public virtual void GameContextInitializeAfter() { }
+        public void GameContextInitializeAfter() { }
 
         /// <summary>
         /// Called on GameContext.Deinitialize
         /// </summary>
-        public virtual void GameContextDeinitialize() { }
+        public void GameContextDeinitialize() { }
 
         /// <summary>
         /// Called at the start of GameContext.Reload which is called from either ClientMainLoop.AttemptActivateBundle
         /// or ServerMainLoop.RequestReload
         /// </summary>
-        public virtual void GameContextReloadBefore() { }
+        public void GameContextReloadBefore() { }
 
         /// <summary>
         /// Called at the end of GameContext.Reload which is called from either ClientMainLoop.AttemptActivateBundle
         /// or ServerMainLoop.RequestReload
         /// </summary>
-        public virtual void GameContextReloadAfter() { }
+        public void GameContextReloadAfter() { }
 
         /// <summary>
         /// Called at the start of Universe.Update
         /// </summary>
         /// <param name="universe"></param>
         /// <param name="step"></param>
-        public virtual void UniverseUpdateBefore(Universe universe, Timestep step) { }
+        public void UniverseUpdateBefore(Universe universe, Timestep step) { }
 
         /// <summary>
         /// Called at the end of Universe.Update
         /// </summary>
-        public virtual void UniverseUpdateAfter() { }
+        public void UniverseUpdateAfter() { }
 
         /// <summary>
         /// Called from Universe.CanPlaceTile 
@@ -169,7 +177,7 @@ namespace Sunbeam
         /// <param name="tile"></param>
         /// <param name="accessFlags"></param>
         /// <returns></returns>
-        public virtual bool CanPlaceTile(Entity entity, Vector3I location, Tile tile, TileAccessFlags accessFlags)
+        public bool CanPlaceTile(Entity entity, Vector3I location, Tile tile, TileAccessFlags accessFlags)
         {
             return true;
         }
@@ -184,7 +192,7 @@ namespace Sunbeam
         /// <param name="tile"></param>
         /// <param name="accessFlags"></param>
         /// <returns></returns>
-        public virtual bool CanReplaceTile(Entity entity, Vector3I location, Tile tile, TileAccessFlags accessFlags)
+        public bool CanReplaceTile(Entity entity, Vector3I location, Tile tile, TileAccessFlags accessFlags)
         {
             return true;
         }
@@ -198,7 +206,7 @@ namespace Sunbeam
         /// <param name="location"></param>
         /// <param name="accessFlags"></param>
         /// <returns></returns>
-        public virtual bool CanRemoveTile(Entity entity, Vector3I location, TileAccessFlags accessFlags)
+        public bool CanRemoveTile(Entity entity, Vector3I location, TileAccessFlags accessFlags)
         {
             return true;
         }
@@ -207,6 +215,6 @@ namespace Sunbeam
         /// Dispose is called on application shutdown to cleanup resources
         /// This get's called through ClientContext.Deinitialize()
         /// </summary>
-        public virtual void Dispose() { }
+        public void Dispose() { }
     }
 }
