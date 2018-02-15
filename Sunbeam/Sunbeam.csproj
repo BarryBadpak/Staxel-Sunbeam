@@ -58,7 +58,10 @@
   <ItemGroup>
     <Compile Include="AssetLoader.cs" />
     <Compile Include="BaseMod.cs" />
+    <Compile Include="Patches\ModdingControllerNS\GameContextInitializeInitPatch.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SunbeamController.cs" />
+    <Compile Include="SunbeamHook.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="preview.png">

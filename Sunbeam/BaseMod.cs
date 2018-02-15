@@ -25,7 +25,7 @@ namespace Sunbeam
         /// <summary>
         /// The prefix for the Harmony patching next to the assembly name
         /// </summary>
-        public const string HarmonyPrefix = "Mod.";
+        public const string HarmonyPrefix = "Mod.Sunbeam.";
 
         /// <summary>
         /// Override this field and return false to prevent a HarmonyInstance being created and automatically patching
