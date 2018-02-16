@@ -1,55 +1,95 @@
 ﻿using Plukit.Base;
-using Staxel.Modding;
-using System;
-using System.Collections;
+using Staxel.Browser;
 using System.Collections.Generic;
-using System.Reflection;
+using System.Linq;
+using System;
+using Harmony;
 
 namespace Sunbeam
 {
-    public class SunbeamController
-    {
-        private static SunbeamController _instance;
-        public static SunbeamController Instance
-        {
-            get { return _instance ?? (_instance = new SunbeamController()); }
-        }
+	public class SunbeamController
+	{
+		private const string HarmonyIdentifier = "Mod.Sunbeam";
 
-        private readonly List<BaseMod> DerivedMods = new List<BaseMod>();
+		private static SunbeamController _instance;
+		public static SunbeamController Instance
+		{
+			get { return _instance ?? (_instance = new SunbeamController()); }
+		}
 
-        /// <summary>
-        /// Initialize the SunbeamController
-        /// Should only be called once, at least after the ModdingController.GameContextInitializeInit was called
-        /// </summary>
-        public void Initialize(IEnumerable ModList)
-        {
+		private readonly List<SunbeamMod> Mods = new List<SunbeamMod>();
 
-            this.EnumerateDerivedMods(ModList);
-        }
+		internal HarmonyInstance HarmonyInstance { get; private set; }
 
-        /// <summary>
-        /// Enumerate all derived mods
-        /// </summary>
-        /// <param name="ModList"></param>
-        public void EnumerateDerivedMods(IEnumerable ModList)
-        {
-            foreach (var ModHook in ModList as IEnumerable)
-            {
-                FieldInfo Field2 = ModHook.GetType().GetField("ModHookV2", BindingFlags.Public | BindingFlags.Instance);
-                IModHookV2 ModInstance = Field2.GetValue(ModHook) as IModHookV2;
+		/// <summary>
+		/// Initialize the SunbeamController
+		/// Should only be called once, at least after the ModdingController.GameContextInitializeInit was called
+		/// </summary>
+		public void Initialize()
+		{
+			this.ApplyHarmonyPatches();
+			this.EnumerateMods();
+		}
 
-                if (ModInstance is BaseMod)
-                {
-                    if (this.DerivedMods.Find(m => m.ModIdentifier == (ModInstance as BaseMod).ModIdentifier) != null)
-                    {
-                        Logger.WriteLine("SunBeamController.EnumerateDerivedMods: Skipped mod" + (ModInstance as BaseMod).ModIdentifier + " already added.\r\n");
-                        continue;
-                    }
+		private void ApplyHarmonyPatches()
+		{
+			this.HarmonyInstance = HarmonyInstance.Create(SunbeamController.HarmonyIdentifier);
+			this.HarmonyInstance.PatchAll(typeof(SunbeamController).Assembly);
+		}
 
-                    SunbeamController.Instance.DerivedMods.Add(ModInstance as BaseMod);
-                    Logger.WriteLine("SunBeamController.EnumerateDerivedMods: Added mod" + (ModInstance as BaseMod).ModIdentifier + ".\r\n");
-                }
-            }
-        }
-    }
+		/// <summary>
+		/// Called whenever the browser instance finished (re)loading the start menu
+		/// </summary>
+		/// <param name="surface"></param>
+		public void StartMenuUILoaded(BrowserRenderSurface surface)
+		{
+			for (int i = 0; i < this.Mods.Count; i++)
+			{
+				this.Mods[i].StartMenuUILoaded(surface);
+			}
+		}
+
+		/// <summary>
+		/// Called whenever the browser instance finished (re)loading the ingame overlay
+		/// </summary>
+		public void IngameOverlayUILoaded(BrowserRenderSurface surface)
+		{
+			Logger.WriteLine("SunbeamController.IngameOverlayUILoaded called\r\n");
+			for (int i = 0; i < this.Mods.Count; i++)
+			{
+				this.Mods[i].IngameOverlayUILoaded(surface);
+			}
+		}
+
+		/// <summary>
+		/// Enumerate all derived mods from a list of mods
+		/// </summary>
+		/// <param name="ModList"></param>
+		private void EnumerateMods()
+		{
+			Type[] ModList = (from domainAssembly in AppDomain.CurrentDomain.GetAssemblies()
+							  from assemblyType in domainAssembly.GetTypes()
+							  where typeof(SunbeamMod).IsAssignableFrom(assemblyType)
+							  && assemblyType.IsClass && !assemblyType.IsAbstract
+							  select assemblyType).ToArray();
+
+			foreach (Type ModType in ModList)
+			{
+				try
+				{
+					SunbeamMod Mod = (SunbeamMod)Activator.CreateInstance(ModType);
+					Mod.ApplyHarmonyPatches();
+					Mod.Initialize();
+
+					Logger.WriteLine("SunbeamController.EnumerateMods: Loaded mod '" + Mod.ModIdentifier + "'");
+					this.Mods.Add(Mod);
+				}
+				catch (Exception e)
+				{
+					Logger.WriteLine("SunbeamController.EnumerateMods: Exception thrown - " + e.ToString());
+				}
+			}
+
+		}
+	}
 }

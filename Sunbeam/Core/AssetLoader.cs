@@ -1,9 +1,8 @@
 ﻿using Plukit.Base;
 using Staxel;
-using System;
 using System.IO;
 
-namespace Sunbeam
+namespace Sunbeam.Core
 {
     public class AssetLoader
     {

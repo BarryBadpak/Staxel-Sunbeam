@@ -39,6 +39,10 @@
       <HintPath>..\..\..\..\SoftwareLibraries\0Harmony.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="CefSharp">
+      <HintPath>..\..\..\..\SoftwareLibraries\CefSharp.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Plukit.Base">
       <HintPath>..\..\..\..\SteamLibrary\steamapps\common\Staxel\bin\Plukit.Base.dll</HintPath>
       <Private>False</Private>
@@ -56,12 +60,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AssetLoader.cs" />
-    <Compile Include="BaseMod.cs" />
-    <Compile Include="Patches\ModdingControllerNS\GameContextInitializeInitPatch.cs" />
+    <Compile Include="Core\AssetLoader.cs" />
+    <Compile Include="SunbeamMod.cs" />
+    <Compile Include="Core\UIReferencePair.cs" />
+    <Compile Include="Patches\BrowserRenderSurfaceNS\InitPatch.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SunbeamController.cs" />
-    <Compile Include="SunbeamHook.cs" />
+    <Compile Include="Patches\SunbeamHook.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="preview.png">
