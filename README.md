@@ -12,7 +12,9 @@
   A shared mod library for Staxel that offers extra functionality to derived mods.
 </p>
 
-**Note:** The Sunbeam assembly should never be included with mods based on Sunbeam.
+<p align="center">
+  <b>Note:</b> The Sunbeam assembly should never be included with mods based on Sunbeam.
+</p>
 
 ## Features
 - Base mod class where extended classes gain access to all of the IModHookV2 methods besides `GameContextInitializeInit`.
