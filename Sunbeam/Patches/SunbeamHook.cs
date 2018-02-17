@@ -8,25 +8,56 @@ namespace Sunbeam
 {
 	class SunbeamHook : IModHookV2
 	{
-
+		/// <summary>
+		/// Instantiate the sunbeamcontroller somewhere within the GameContextInitializeInit method
+		/// This means that sunbeam mods will lose the GameContextInitializeInit method to hook into
+		/// however the constructor of sunbeam derived mods will have the same effect
+		/// 
+		/// I'm not convinced of instantiating mods already at the GameContext point, the most usefull to have
+		/// available when the mod is instantiated is the ClientContext, now you need to instantiate ClientContext related
+		/// objects in ClientContextInitializeBefore to ensure that everything within is available
+		/// </summary>
 		public SunbeamHook()
 		{
 			SunbeamController.Instance.Initialize();
 		}
 
+		/// <summary>
+		/// Delegate method to SunbeamController
+		/// </summary>
+		/// <param name="entity"></param>
+		/// <param name="location"></param>
+		/// <param name="tile"></param>
+		/// <param name="accessFlags"></param>
+		/// <returns></returns>
 		public bool CanPlaceTile(Entity entity, Vector3I location, Tile tile, TileAccessFlags accessFlags)
 		{
-			return true;
+			return SunbeamController.Instance.CanPlaceTile(entity, location, tile, accessFlags);
 		}
 
+		/// <summary>
+		/// Delegate method to SunbeamController
+		/// </summary>
+		/// <param name="entity"></param>
+		/// <param name="location"></param>
+		/// <param name="accessFlags"></param>
+		/// <returns></returns>
 		public bool CanRemoveTile(Entity entity, Vector3I location, TileAccessFlags accessFlags)
 		{
-			return true;
+			return SunbeamController.Instance.CanRemoveTile(entity, location, accessFlags);
 		}
 
+		/// <summary>
+		/// Delegate method to SunbeamController
+		/// </summary>
+		/// <param name="entity"></param>
+		/// <param name="location"></param>
+		/// <param name="tile"></param>
+		/// <param name="accessFlags"></param>
+		/// <returns></returns>
 		public bool CanReplaceTile(Entity entity, Vector3I location, Tile tile, TileAccessFlags accessFlags)
 		{
-			return true;
+			return SunbeamController.Instance.CanReplaceTile(entity, location, tile, accessFlags);
 		}
 
 		public void CleanupOldSession() {}

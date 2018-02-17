@@ -3,7 +3,6 @@ using Harmony;
 using Plukit.Base;
 using Staxel.Browser;
 using Sunbeam.Core;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -14,7 +13,7 @@ namespace Sunbeam.Patches.BrowserRenderSurfaceNS
 	/// <summary>
 	/// Remove this._initialised = true from Init function
 	/// </summary>
-    [HarmonyPatch(typeof(BrowserRenderSurface), "Init")]
+	[HarmonyPatch(typeof(BrowserRenderSurface), "Init")]
     class InitPatch
     {
 		private static BrowserRenderSurface StartMenuSurface { get; set; }

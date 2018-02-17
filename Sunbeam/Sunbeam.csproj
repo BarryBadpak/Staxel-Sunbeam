@@ -61,6 +61,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core\AssetLoader.cs" />
+    <Compile Include="Patches\ModdingControllerNS\ClientContextReloadAfterPatch.cs" />
+    <Compile Include="Patches\ModdingControllerNS\ClientContextReloadBeforePatch.cs" />
+    <Compile Include="Patches\ModdingControllerNS\ClientContextDeinitializePatch.cs" />
+    <Compile Include="Patches\ModdingControllerNS\ClientContextInitializeAfterPatch.cs" />
+    <Compile Include="Patches\ModdingControllerNS\CleanupOldSessionPatch.cs" />
+    <Compile Include="Patches\ModdingControllerNS\UniverseUpdateAfterPatch.cs" />
+    <Compile Include="Patches\ModdingControllerNS\UniverseUpdateBeforePatch.cs" />
+    <Compile Include="Patches\ModdingControllerNS\DisposePatch.cs" />
+    <Compile Include="Patches\ModdingControllerNS\ClientContextInitializeBeforePatch.cs" />
+    <Compile Include="Patches\ModdingControllerNS\GameContextReloadAfterPatch.cs" />
+    <Compile Include="Patches\ModdingControllerNS\GameContextInitializeAfterPatch.cs" />
+    <Compile Include="Patches\ModdingControllerNS\GameContextDeinitializePatch.cs" />
+    <Compile Include="Patches\ModdingControllerNS\GameContextReloadBeforePatch.cs" />
+    <Compile Include="Patches\ModdingControllerNS\GameContextInitializeBeforePatch.cs" />
     <Compile Include="SunbeamMod.cs" />
     <Compile Include="Core\UIReferencePair.cs" />
     <Compile Include="Patches\BrowserRenderSurfaceNS\InitPatch.cs" />

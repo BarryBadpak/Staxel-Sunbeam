@@ -3,14 +3,13 @@ using Plukit.Base;
 using Staxel.Browser;
 using Staxel.Items;
 using Staxel.Logic;
-using Staxel.Modding;
 using Staxel.Tiles;
 using Sunbeam.Core;
 using System;
 
 namespace Sunbeam
 {
-	public abstract class SunbeamMod : IModHookV2
+	public abstract class SunbeamMod
 	{
 		/// <summary>
 		/// The mod identifier should be the same as the mod's name/folder name
@@ -71,12 +70,37 @@ namespace Sunbeam
 		public virtual void IngameOverlayUILoaded(BrowserRenderSurface surface) { }
 
 		/// <summary>
-		/// Called whenever the ClientContext.Initialize is called on game instantiation
-		/// ClientContext.Initialize is called after GameContext.Initialize by 
-		/// 
-		/// Currently this method only exists within the interface
+		/// Called before GameContext.ResourceIntializations
 		/// </summary>
-		public virtual void ClientContextInitializeInit() { }
+		public virtual void GameContextInitializeBefore() { }
+
+		/// <summary>
+		/// Called at the end of GameContext.ResourceIntializations
+		/// </summary>
+		public virtual void GameContextInitializeAfter() { }
+
+		/// <summary>
+		/// Called on GameContext.Deinitialize
+		/// </summary>
+		public virtual void GameContextDeinitialize() { }
+
+		/// <summary>
+		/// Called at the start of GameContext.Reload which is called from either ClientMainLoop.AttemptActivateBundle
+		/// or ServerMainLoop.RequestReload
+		/// </summary>
+		public virtual void GameContextReloadBefore() { }
+
+		/// <summary>
+		/// Called at the end of GameContext.Reload which is called from either ClientMainLoop.AttemptActivateBundle
+		/// or ServerMainLoop.RequestReload
+		/// </summary>
+		public virtual void GameContextReloadAfter() { }
+
+		/// <summary>
+		/// Dispose is called on application shutdown to cleanup resources
+		/// This get's called through ClientContext.Deinitialize()
+		/// </summary>
+		public virtual void Dispose() { }
 
 		/// <summary>
 		/// Called before ClientContext.ResourceIntializations
@@ -109,42 +133,6 @@ namespace Sunbeam
 		/// Gets called whenever you exit to the main menu from a game session
 		/// </summary>
 		public virtual void CleanupOldSession() { }
-
-		/// <summary>
-		/// GameContext.Initialize calls the GameContextInitializeInit on the ModdingController
-		/// the ModdingController will instantiate all of the Mods and after instantiating all of them
-		/// call GameContextInitializeInit on the mods themselves.
-		/// 
-		/// GameContext.Initialize is called before ClientContext.Initialize
-		/// </summary>
-		public virtual void GameContextInitializeInit() { }
-
-		/// <summary>
-		/// Called before GameContext.ResourceIntializations
-		/// </summary>
-		public virtual void GameContextInitializeBefore() { }
-
-		/// <summary>
-		/// Called at the end of GameContext.ResourceIntializations
-		/// </summary>
-		public virtual void GameContextInitializeAfter() { }
-
-		/// <summary>
-		/// Called on GameContext.Deinitialize
-		/// </summary>
-		public virtual void GameContextDeinitialize() { }
-
-		/// <summary>
-		/// Called at the start of GameContext.Reload which is called from either ClientMainLoop.AttemptActivateBundle
-		/// or ServerMainLoop.RequestReload
-		/// </summary>
-		public virtual void GameContextReloadBefore() { }
-
-		/// <summary>
-		/// Called at the end of GameContext.Reload which is called from either ClientMainLoop.AttemptActivateBundle
-		/// or ServerMainLoop.RequestReload
-		/// </summary>
-		public virtual void GameContextReloadAfter() { }
 
 		/// <summary>
 		/// Called at the start of Universe.Update
@@ -201,12 +189,6 @@ namespace Sunbeam
 		{
 			return true;
 		}
-
-		/// <summary>
-		/// Dispose is called on application shutdown to cleanup resources
-		/// This get's called through ClientContext.Deinitialize()
-		/// </summary>
-		public virtual void Dispose() { }
 
 		/// <summary>
 		/// Applies the Harmony patches if the HarmonyAutoPatch is set to true
