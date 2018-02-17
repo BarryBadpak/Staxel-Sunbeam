@@ -13,6 +13,10 @@
 </p>
 
 <p align="center">
+	<img src="Sunbeam/preview.png"/>
+</p>
+
+<p align="center">
   <b>Note:</b> The Sunbeam assembly should never be included with mods based on Sunbeam.
 </p>
 
