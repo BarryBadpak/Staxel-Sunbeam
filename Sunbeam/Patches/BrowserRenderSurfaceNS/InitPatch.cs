@@ -1,8 +1,6 @@
 ﻿using CefSharp;
 using Harmony;
-using Plukit.Base;
 using Staxel.Browser;
-using Sunbeam.Core;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -10,6 +8,18 @@ using System.Reflection.Emit;
 
 namespace Sunbeam.Patches.BrowserRenderSurfaceNS
 {
+	class UIReferencePair
+	{
+		public ChromiumWebBrowser Browser { get; private set; }
+		public BrowserRenderSurface Surface { get; private set; }
+
+		public UIReferencePair(ChromiumWebBrowser browser, BrowserRenderSurface surface)
+		{
+			this.Browser = browser;
+			this.Surface = surface;
+		}
+	}
+
 	/// <summary>
 	/// Remove this._initialised = true from Init function
 	/// </summary>

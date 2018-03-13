@@ -4,7 +4,7 @@ using Staxel.Browser;
 using Staxel.Items;
 using Staxel.Logic;
 using Staxel.Tiles;
-using Sunbeam.Core;
+using Sunbeam.Core.Helpers;
 using System;
 
 namespace Sunbeam
@@ -42,14 +42,17 @@ namespace Sunbeam
 		/// <summary>
 		/// AssetLoader instance
 		/// </summary>
-		protected AssetLoader AssetLoader { get; set; }
+		protected FileHelper FileHelper { get; set; }
 
 		/// <summary>
 		/// Instantiate a new BaseMod
 		/// </summary>
 		protected SunbeamMod()
 		{
-			this.AssetLoader = new AssetLoader(this.ModIdentifier);
+			this.FileHelper = new FileHelper(this.ModIdentifier);
+
+			string identifier = SunbeamMod.HarmonyPrefix + this.ModIdentifier;
+			this.HarmonyInstance = HarmonyInstance.Create(identifier);
 		}
 
 		/// <summary>
@@ -200,10 +203,8 @@ namespace Sunbeam
 				return;
 			}
 
-			string identifier = SunbeamMod.HarmonyPrefix + this.ModIdentifier;
 			try
 			{
-				this.HarmonyInstance = HarmonyInstance.Create(identifier);
 				this.HarmonyInstance.PatchAll(GetType().Assembly);
 			}
 			catch (Exception e)

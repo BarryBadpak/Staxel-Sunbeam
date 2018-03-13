@@ -2,9 +2,9 @@
 using Staxel;
 using System.IO;
 
-namespace Sunbeam.Core
+namespace Sunbeam.Core.Helpers
 {
-    public class AssetLoader
+    public class FileHelper
     {
         /// <summary>
         /// Absolute path to the content directory
@@ -19,7 +19,7 @@ namespace Sunbeam.Core
         /// <summary>
         /// Initialize the asset loader
         /// </summary>
-        public AssetLoader(string modIdentifier)
+        public FileHelper(string modIdentifier)
         {
             string RootPath = "." + Path.DirectorySeparatorChar + "content_root.txt";
             string RelativeContentDirectory = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), Properties.ContentRoot));
