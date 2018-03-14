@@ -83,7 +83,8 @@
     <Compile Include="Staxel\Rendering\BitmapFont\BmFont.cs" />
     <Compile Include="Staxel\Rendering\BitmapFont\BmFontAlign.cs" />
     <Compile Include="Staxel\Rendering\BitmapFont\BmFontCharInfo.cs" />
-    <Compile Include="Staxel\Rendering\BitmapFont\BmFontDrawCall.cs" />
+    <Compile Include="Staxel\Rendering\TextRenderer.cs" />
+    <Compile Include="Staxel\Rendering\ScreenTextRenderer.cs" />
     <Compile Include="Staxel\Rendering\WorldTextRenderer.cs" />
     <Compile Include="SunbeamMod.cs" />
     <Compile Include="Patches\BrowserRenderSurfaceNS\InitPatch.cs" />
